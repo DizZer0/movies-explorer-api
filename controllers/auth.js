@@ -19,12 +19,16 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
       name: name,
     }))
-    .then((user) => res.send(user))
+    .then((user) => res.send({
+      email: user.email,
+      name: user.name,
+      _id: user._id
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Некорректные данные'));
       } else if (err.code === 11000) {
-        next(new Conflict('Пользователь с таким email уже существует1'));
+        next(new Conflict('Пользователь с таким email уже существует'));
       } else {
         next(new ServerError('Произошла ошибка'));
       }
@@ -35,6 +39,7 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials({ email, password })
     .then((user) => {
+      console.log(NODE_ENV)
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
       res.send({ message: 'Авторизация успешна', token: token });
     })

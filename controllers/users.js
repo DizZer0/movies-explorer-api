@@ -3,6 +3,7 @@ const User = require('../models/users');
 const ValidationError = require('../errors/ValidationError');
 const ServerError = require('../errors/ServerError');
 const NoDataFound = require('../errors/NoDataFound');
+const Conflict = require('../errors/Conflict')
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user)
@@ -11,11 +12,7 @@ module.exports.getUser = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Невалидный id'));
-      } else {
-        next(new ServerError('произошла ошибка'));
-      }
+      next(new ServerError('произошла ошибка'));
     });
 };
 
@@ -33,6 +30,8 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Некорректные данные'));
+      } else if (err.code === 11000) {
+        next(new Conflict('Пользователь с таким email уже существует'));
       } else {
         next(new ServerError('Произошла ошибка'));
       }

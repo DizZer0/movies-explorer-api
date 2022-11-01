@@ -16,11 +16,7 @@ module.exports.getMovies = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new ValidationError('Невалидный id'));
-      } else {
-        next(new ServerError('Произошла ошибка'));
-      }
+      next(new ServerError('Произошла ошибка'));
     });
 };
 
@@ -56,6 +52,7 @@ module.exports.createMovie = (req, res, next) => {
   })
     .then((movie) => res.send(movie))
     .catch((err) => {
+      console.log(err)
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные'));
       } else {
@@ -65,12 +62,12 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.id)
+  Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
         next(new NoDataFound('Фильм с таким id не найден'));
       } else {
-        Movie.findByIdAndRemove(req.params.id)
+        return Movie.findByIdAndRemove(req.params.id)
           .then(() => res.send(movie));
       }
     })
