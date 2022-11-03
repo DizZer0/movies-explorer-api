@@ -1,5 +1,12 @@
 const User = require('../models/users');
 
+const {
+  INCORRECT_DATA,
+  EMAIL_EXIST,
+  SERVER_ERROR,
+  USER_NOT_FOUND
+} = required('../utils/constants')
+
 const ValidationError = require('../errors/ValidationError');
 const ServerError = require('../errors/ServerError');
 const NoDataFound = require('../errors/NoDataFound');
@@ -7,12 +14,12 @@ const Conflict = require('../errors/Conflict')
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user)
-    .orFail(new NoDataFound('Пользователь с таким id не найден'))
+    .orFail(new NoDataFound(USER_NOT_FOUND))
     .then((user) => {
       res.send(user);
     })
     .catch((err) => {
-      next(new ServerError('произошла ошибка'));
+      next(new ServerError(SERVER_ERROR));
     });
 };
 
@@ -29,11 +36,11 @@ module.exports.updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new ValidationError('Некорректные данные'));
+        next(new ValidationError(INCORRECT_DATA));
       } else if (err.code === 11000) {
-        next(new Conflict('Пользователь с таким email уже существует'));
+        next(new Conflict(EMAIL_EXIST));
       } else {
-        next(new ServerError('Произошла ошибка'));
+        next(new ServerError(SERVER_ERROR));
       }
     });
 };
