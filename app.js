@@ -16,11 +16,11 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: false,
+};
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-})
+app.use(cors(corsOptions));
 
 app.use(requestLogger);
 
