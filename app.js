@@ -13,7 +13,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter, moviesdb } = require('./utils/config')
 
 const corsOptions = {
-  origin: 'http://dizzero.diplom.nomoredomainsclub.ru/',
+  origin: 'http://dizzero.diplom.nomoredomainsclub.ru',
 };
 
 const { PORT = 3000 } = process.env;
