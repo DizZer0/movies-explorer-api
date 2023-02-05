@@ -1,1 +1,1 @@
-# movies-explorer-api
+Адрес домена http://dizzero.api.nomoredomains.icu
