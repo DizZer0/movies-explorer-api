@@ -22,7 +22,7 @@ app.use(limiter);
 
 app.use(cors(
   {
-  origin: '*',
+  origin: 'http://dizzero.diplom.nomoredomainsclub.ru/',
   allowedHeaders: ['Content-Type', 'Authorization'],
   },
 ));
