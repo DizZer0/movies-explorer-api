@@ -20,7 +20,12 @@ const corsOptions = {
   origin: false,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(
+  {
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  },
+));
 
 app.use(requestLogger);
 
