@@ -22,7 +22,7 @@ module.exports.getMovies = (req, res, next) => {
       }
     })
     .catch((err) => {
-      next(new ServerError(SERVER_ERROR));
+      next(err);
     });
 };
 

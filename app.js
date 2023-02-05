@@ -26,6 +26,7 @@ app.use(cors(
   allowedHeaders: ['Content-Type', 'Authorization'],
   },
   ));
+
 app.use(helmet());
 
 app.use(bodyParser.json());
