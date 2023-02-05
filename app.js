@@ -16,9 +16,9 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const corsOptions = {
-  origin: false,
-};
+app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(cors(
   {
@@ -26,10 +26,6 @@ app.use(cors(
   allowedHeaders: ['Content-Type', 'Authorization'],
   },
 ));
-
-app.use(requestLogger);
-
-app.use(limiter);
 
 app.use(helmet());
 
