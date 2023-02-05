@@ -5,7 +5,7 @@ const {
   EMAIL_EXIST,
   SERVER_ERROR,
   USER_NOT_FOUND
-} = required('../utils/constants')
+} = require('../utils/constants')
 
 const ValidationError = require('../errors/ValidationError');
 const ServerError = require('../errors/ServerError');

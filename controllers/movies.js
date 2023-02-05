@@ -6,7 +6,7 @@ const {
   NO_SAVED_MOVIES,
   INVALID_ID,
   MOVIE_NOT_FOUND
-} = required("../utils/constants")
+} = require("../utils/constants")
 
 const ValidationError = require('../errors/ValidationError');
 const ServerError = require('../errors/ServerError');

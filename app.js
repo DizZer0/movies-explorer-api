@@ -10,7 +10,6 @@ const cors = require('cors');
 const errHandler = require('./middlewares/errHandler');
 const NoDataFound = require('./errors/NoDataFound');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const limiter = require('./utils/limiter')
 const { limiter, moviesdb } = require('./utils/config')
 
 const { PORT = 3000 } = process.env;
