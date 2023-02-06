@@ -16,10 +16,11 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.user)
     .orFail(new NoDataFound(USER_NOT_FOUND))
     .then((user) => {
+      console.log(req, res, next)
       res.send(user);
     })
     .catch((err) => {
-      next(new ServerError(SERVER_ERROR));
+      next(err);
     });
 };
 

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { AUTHORIZATION_REQUIRED } = required('../utils/constants')
+const { AUTHORIZATION_REQUIRED } = require('../utils/constants')
 
 const Unauthorized = require('../errors/Unauthorized');
 const { devJwtKey } = require('../utils/config')
